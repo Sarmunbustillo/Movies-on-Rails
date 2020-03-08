@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
-
 import './App.css';
+import Cards from './components/Card';
 import CONFIG from './config';
+import GridStyles from './components/Grid';
 
 const App = () => {
+  const [data, setData] = useState({ data: [], page: null });
+
   useEffect(() => {
     const getMovies = async () => {
       const resp = await fetch(
         `${CONFIG.BASE_URL}/3/movie/popular?api_key=${CONFIG.API_KEY}`
       );
       const data = await resp.json();
-      console.log(data);
+      setData({ data: data.results, page: data.page });
     };
-
     getMovies();
-  });
-
-  // const display = () => {
-  //   return data.map((movie, i) => {
-  //     return <li key={i}>{data.results[1].title}</li>;
-  //   });
-  // };
+  }, []);
 
   return (
     <div className="App">
-      <h1>Hello Vietnam! This will compile</h1>
-      <div>
-        <ul></ul>
-      </div>
+      <h1>Movie on Rails</h1>
+      <GridStyles>
+        {data.data.map((value, index) => {
+          return <Cards data={{ value }} key={index}></Cards>;
+        })}
+      </GridStyles>
     </div>
   );
 };
