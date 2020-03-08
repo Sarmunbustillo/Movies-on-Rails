@@ -1,13 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+import './App.css';
+import CONFIG from './config';
+
+const App = () => {
+  useEffect(() => {
+    const getMovies = async () => {
+      const resp = await fetch(
+        `${CONFIG.BASE_URL}/3/movie/popular?api_key=${CONFIG.API_KEY}`
+      );
+      const data = await resp.json();
+      console.log(data);
+    };
+
+    getMovies();
+  });
+
+  // const display = () => {
+  //   return data.map((movie, i) => {
+  //     return <li key={i}>{data.results[1].title}</li>;
+  //   });
+  // };
+
   return (
     <div className="App">
-      <h1>Hello Vietnam!</h1>
+      <h1>Hello Vietnam! This will compile</h1>
+      <div>
+        <ul></ul>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
