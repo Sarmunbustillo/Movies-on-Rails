@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import Cards from './components/Card';
-import CONFIG from './config';
 import GridStyles from './components/Grid';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import SingleMovie from './components/SingleMovie';
+import MovieGrid from './components/MovieGrid';
 
 const App = () => {
-  const [data, setData] = useState({ data: [], page: null });
-
-  useEffect(() => {
-    const getMovies = async () => {
-      const resp = await fetch(`${CONFIG.BASE_URL}/3/movie/popular?api_key=${CONFIG.API_KEY}`);
-      const data = await resp.json();
-      setData({ data: data.results, page: data.page });
-    };
-    getMovies();
-  }, []);
-
   return (
     <div className="App">
       <h1>Movie on Rails</h1>
-      <GridStyles>
-        {data.data.map((value, index) => {
-          return <Cards data={{ value }} key={index}></Cards>;
-        })}
-      </GridStyles>
+      <Switch>
+        <Route path="/singleMovie" component={SingleMovie}></Route>
+        <Route path="/" component={MovieGrid}></Route>
+        <Redirect to="/" />
+      </Switch>
     </div>
   );
 };

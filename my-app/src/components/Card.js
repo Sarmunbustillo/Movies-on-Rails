@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import SingleMovie from './SingleMovie';
 
 const Cards = props => {
   const sharedStyle = css`
@@ -91,25 +92,29 @@ const Cards = props => {
   const CardImg = styled.img``;
   console.log(props.data);
   return (
-    <Router>
-      <Card>
-        <CardTop>
-          <CardContent>
-            <CardImg></CardImg>
-            <h3> {props.data.value.title} </h3>
-          </CardContent>
-        </CardTop>
-        <CardBottom>
-          <CardContent>
-            <p>
-              Lorem ipsum dolor de guevas, sit amet consectetur adipisicing elit. Totam expedita doloremque
-              assumenda beatae suscipit debitis quisquam
-            </p>
-            <a href="/singleMovie">Read More</a>
-          </CardContent>
-        </CardBottom>
-      </Card>
-    </Router>
+    <Card>
+      <CardTop>
+        <CardContent>
+          <CardImg></CardImg>
+          <h3> {props.data.value.title} </h3>
+        </CardContent>
+      </CardTop>
+      <CardBottom>
+        <CardContent>
+          <p>
+            Lorem ipsum dolor de guevas, sit amet consectetur adipisicing elit. Totam expedita doloremque
+            assumenda beatae suscipit debitis quisquam
+          </p>
+          <Link
+            to={{
+              pathname: `/SingleMovie/${props.data.value.id}`
+            }}
+          >
+            Read More
+          </Link>
+        </CardContent>
+      </CardBottom>
+    </Card>
   );
 };
 
