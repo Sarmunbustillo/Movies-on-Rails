@@ -7,7 +7,6 @@ const GridStyles = props => {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
     padding: 10px;
-    grid-auto-rows: 300px;
 
     div {
       margin: auto;

@@ -9,9 +9,7 @@ const App = () => {
 
   useEffect(() => {
     const getMovies = async () => {
-      const resp = await fetch(
-        `${CONFIG.BASE_URL}/3/movie/popular?api_key=${CONFIG.API_KEY}`
-      );
+      const resp = await fetch(`${CONFIG.BASE_URL}/3/movie/popular?api_key=${CONFIG.API_KEY}`);
       const data = await resp.json();
       setData({ data: data.results, page: data.page });
     };
