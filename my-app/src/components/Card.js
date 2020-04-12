@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SingleMovie from './SingleMovie';
+import gStyles from '../utils/globalStyles';
+import shortenStr from '../utils/string';
 
-const Cards = props => {
+const Cards = (props) => {
+  const movieDescription =
+    props.data.value.overview.length > 150
+      ? shortenStr(props.data.value.overview, 150) + '....'
+      : props.data.value.overview;
+  const imgURL = `https://image.tmdb.org/t/p/w220_and_h330_face/${props.data.value.poster_path}`;
+
   const sharedStyle = css`
-    width: 300px;
-    height: 200px;
+    width: 220px;
+    height: 300px;
     transition: all 0.3s ease-in-out;
     box-sizing: border-box;
   `;
@@ -14,10 +22,11 @@ const Cards = props => {
   const CardTop = styled.div`
     ${sharedStyle}
     position: relative;
-    background: #353e51;
+    background-image: url("${imgURL}");
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px 10px 0px 0px;
     z-index: 1;
     transform: translateY(100px);
   `;
@@ -33,10 +42,11 @@ const Cards = props => {
     padding: 20px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
     transform: translateY(-100px);
+    border-radius: 0px 0px 10px 10px;
   `;
 
   const CardContent = styled.div`
-    opacity: 0.2;
+    opacity: 0.5;
     transition: all 0.3s ease-in-out;
 
     img {
@@ -54,6 +64,7 @@ const Cards = props => {
 
     p {
       line-height: 1.4;
+      font-size: 14px;
     }
 
     a {
@@ -62,11 +73,11 @@ const Cards = props => {
       text-decoration: none;
       font-weight: 900;
       padding: 5px;
-      border: 2px solid pink;
+      border: 2px solid ${gStyles.primaryBG};
       color: black;
 
       &:hover {
-        background-color: pink;
+        background-color: ${gStyles.primaryBG};
         color: white;
       }
     }
@@ -89,25 +100,22 @@ const Cards = props => {
     }
   `;
 
+  console.log('Props', props);
   const CardImg = styled.img``;
-  console.log(props.data);
   return (
     <Card>
       <CardTop>
         <CardContent>
           <CardImg></CardImg>
-          <h3> {props.data.value.title} </h3>
+          {/* <h3> {props.data.value.title} </h3> */}
         </CardContent>
       </CardTop>
       <CardBottom>
         <CardContent>
-          <p>
-            Lorem ipsum dolor de guevas, sit amet consectetur adipisicing elit. Totam expedita doloremque
-            assumenda beatae suscipit debitis quisquam
-          </p>
+          <p>{movieDescription}</p>
           <Link
             to={{
-              pathname: `/SingleMovie/${props.data.value.id}`
+              pathname: `/SingleMovie/${props.data.value.id}`,
             }}
           >
             Read More
