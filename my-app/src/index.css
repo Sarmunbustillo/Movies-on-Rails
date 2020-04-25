@@ -1,5 +1,8 @@
-.root {
+:root {
   --primary-color: #899593;
+  --secondary-color: orange;
+  --gray: #1d1d1d;
+  --white: white;
 }
 
 body {

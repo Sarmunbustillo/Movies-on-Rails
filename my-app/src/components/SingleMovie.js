@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import CONFIG from '../config';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const SingleMovie = (props) => {
   const location = useLocation();
@@ -20,62 +20,118 @@ const SingleMovie = (props) => {
     getSingleMovie();
   }, []);
 
+  const slide = keyframes`
+    0% {
+      width: 0%;
+      left:0%
+    }
+    50% {
+      width: 50%;
+      left: 0%   
+    }
+    100% {
+      width: 0%;
+      left: 100%
+    }
+  `;
+
+  const appearH1 = keyframes`
+    0% {
+    }
+    100% {
+      color: var(--secondary-color);
+    }
+  `;
+
+  const appearP = keyframes`
+    0% {
+    }
+    100% {
+      color: var(--white);
+    }
+  `;
+
+  const rotate = keyframes`
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(30deg);
+    }
+    100% {
+      transform: rotate(10deg);
+    }
+  `;
+
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
     background-color: #030303;
     height: calc(100vh - 81px);
+    background: var(--gray);
+  `;
+
+  const TextWrapper = styled.div`
+    text-align: left;
+    padding: 20px;
+
     h1,
     p {
-      color: white;
+      color: var(--gray);
+      margin: 0;
     }
 
     h1 {
       font-size: 70px;
       font-weight: bold;
-      position: absolute;
-      z-index: 2;
-      top: 57%;
-      left: 30%;
-      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+      animation: ${appearH1} 0.4s ease-in-out forwards 1.4s;
+      position: relative;
+
+      &::after {
+        content: '';
+        height: 80%;
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
+        background-color: var(--secondary-color);
+        z-index: 1;
+        animation: ${slide} 1.8s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+      }
     }
 
     p {
-      position: absolute;
+      margin: 10px 0;
       font-size: 20px;
       z-index: 2;
       display: inline-block;
-    }
-
-    #tagline {
-      top: 66%;
-      left: 11.5%;
-    }
-
-    #overview {
-      top: 66%;
-      right: 8%;
-      letter-spacing: 0.4;
       line-height: 30px;
-      width: 38%;
+      animation: ${appearP} 0.4s ease-in-out forwards 1.8s;
+    }
+
+    p:nth-child(2) {
+      font-style: italic;
+    }
+    p:nth-child(3) {
+      margin-top: 20px;
     }
   `;
 
   const ImgWrapper = styled.div`
     position: relative;
-    height: 100%;
+    height: 65%;
     width: 100%;
 
     &::after {
-      content: 'ss';
+      content: '';
       height: 100%;
       width: 100%;
       top: 0%;
       left: 0%;
       position: absolute;
       background-color: black;
-      opacity: 0.5;
+      opacity: 0.25;
       z-index: 1;
     }
 
@@ -85,6 +141,7 @@ const SingleMovie = (props) => {
       background-repeat: no-repeat;
       height: 100%;
       width: 100%;
+      background-position: 0% 50%;
     }
   `;
 
@@ -95,24 +152,26 @@ const SingleMovie = (props) => {
     z-index: 2;
     top: -1%;
     right: 2%;
-    font-size: 25px;
+    font-size: 32px;
     font-weight: bold;
-    background-color: orange;
+    background-color: var(--secondary-color);
     padding: 5px 10px;
     border-radius: 20%;
-    transform: rotate(10deg);
+    animation: ${rotate} 1.2s ease-in-out forwards;
   `;
 
   console.log('MOVIE', movie);
   return (
     <Wrapper>
-      <h1>{movie.title}</h1>
       <ImgWrapper>
         <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} />
       </ImgWrapper>
-      <p id="tagline">{movie.tagline}</p>
-      <p id="overview">{movie.overview}</p>
-      <Rating>{movie.vote_average}</Rating>
+      <TextWrapper>
+        <h1>{movie.title}</h1>
+        <p>{movie.tagline}</p>
+        <p>{movie.overview}</p>
+        <Rating>{movie.vote_average}</Rating>
+      </TextWrapper>
     </Wrapper>
   );
 };
