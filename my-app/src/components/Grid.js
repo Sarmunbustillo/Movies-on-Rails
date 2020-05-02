@@ -2,14 +2,20 @@ import styled from 'styled-components';
 import React from 'react';
 
 const Container = styled.div`
-  display: grid;
+display: flex;
+flex-wrap: wrap;
+justify-content:center;
+padding: 0 10px;
+
+
+  /* display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: fit-content(1em);
   grid-gap: 10px;
-  padding: 10px;
-
+  padding: 10px; */
+  
   div {
-    margin: auto;
+    margin: 0 10px;
   }
 `;
 

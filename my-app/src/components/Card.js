@@ -57,6 +57,7 @@ const CardContent = styled.div`
   p {
     line-height: 1.4;
     font-size: 14px;
+    height: 150px;
   }
 
   a {
@@ -65,7 +66,7 @@ const CardContent = styled.div`
     text-decoration: none;
     font-weight: 900;
     padding: 5px;
-    border: 2px solid ${gStyles.primaryBG};
+    border: 2px solid var(--primary-color);
     color: black;
 
     &:hover {
@@ -102,7 +103,7 @@ const Cards = (props) => {
   return (
     <Card>
       <CardTop imgURL={imgURL}>
-        <CardContent>g></CardContent>
+        <CardContent></CardContent>
       </CardTop>
       <CardBottom>
         <CardContent>

@@ -122,6 +122,11 @@ const SingleMovie = (props) => {
     position: relative;
     height: 65%;
     width: 100%;
+    background-image: url(${`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`});
+    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
 
     &::after {
       content: '';
@@ -133,15 +138,6 @@ const SingleMovie = (props) => {
       background-color: black;
       opacity: 0.25;
       z-index: 1;
-    }
-
-    img {
-      object-fit: cover;
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 100%;
-      width: 100%;
-      background-position: 0% 50%;
     }
   `;
 
@@ -163,9 +159,7 @@ const SingleMovie = (props) => {
   console.log('MOVIE', movie);
   return (
     <Wrapper>
-      <ImgWrapper>
-        <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} />
-      </ImgWrapper>
+      <ImgWrapper />
       <TextWrapper>
         <h1>{movie.title}</h1>
         <p>{movie.tagline}</p>
