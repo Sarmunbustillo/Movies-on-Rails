@@ -18,8 +18,9 @@ const SingleMovie = (props) => {
     };
 
     getSingleMovie();
+    console.log('here', movie);
   }, []);
-
+  console.log('movie', movie);
   const slide = keyframes`
     0% {
       width: 0%;
@@ -156,7 +157,6 @@ const SingleMovie = (props) => {
     animation: ${rotate} 1.2s ease-in-out forwards;
   `;
 
-  console.log('MOVIE', movie);
   return (
     <Wrapper>
       <ImgWrapper />
